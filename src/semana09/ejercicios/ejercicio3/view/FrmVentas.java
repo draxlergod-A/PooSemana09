@@ -2,20 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package FrmProductos;
+package semana09.ejercicios.ejercicio3.view;
 
 /**
  *
  * @author luisl
  */
-public class java extends javax.swing.JFrame {
+public class FrmVentas extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(java.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmVentas.class.getName());
 
     /**
-     * Creates new form java
+     * Creates new form FrmVentas
      */
-    public java() {
+    public FrmVentas() {
         initComponents();
     }
 
@@ -66,7 +66,7 @@ public class java extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new java().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new FrmVentas().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
