@@ -27,6 +27,9 @@ public class FrmVentas extends javax.swing.JFrame {
      */
     public FrmVentas() {
         initComponents();
+        
+        pnlNatural.setVisible(true);
+        pnlJuridico.setVisible(false);
     }
 
     /**
@@ -142,6 +145,7 @@ public class FrmVentas extends javax.swing.JFrame {
         btnAgregarDetalle = new javax.swing.JButton();
         txtCantidadPedido = new javax.swing.JTextField();
         cmbProductoPedido = new javax.swing.JComboBox<>();
+        lblPrecioPedido = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDetallePedido = new javax.swing.JTable();
@@ -170,8 +174,6 @@ public class FrmVentas extends javax.swing.JFrame {
 
         btnRegistrarPersonal.setText("REGISTRAR PERSONAL");
         btnRegistrarPersonal.addActionListener(this::btnRegistrarPersonalActionPerformed);
-
-        cmbPuestoPersonal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vendedor" }));
 
         cmbJefePersonal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin jefe" }));
 
@@ -395,8 +397,6 @@ public class FrmVentas extends javax.swing.JFrame {
         txtNombreProducto.addActionListener(this::txtNombreProductoActionPerformed);
 
         cmbEstadoProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible" }));
-
-        cmbCategoriaProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tecnologia" }));
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -731,10 +731,6 @@ public class FrmVentas extends javax.swing.JFrame {
 
         jLabel44.setText("Estado:");
 
-        cmbClientePedido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbPersonalPedido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         chkEstadoPedido.setText("jCheckBox1");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -811,7 +807,9 @@ public class FrmVentas extends javax.swing.JFrame {
         btnAgregarDetalle.setText("Agregar al Pedido");
         btnAgregarDetalle.addActionListener(this::btnAgregarDetalleActionPerformed);
 
-        cmbProductoPedido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbProductoPedido.addActionListener(this::cmbProductoPedidoActionPerformed);
+
+        lblPrecioPedido.setText("S/ 0.00");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -828,7 +826,8 @@ public class FrmVentas extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCantidadPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbProductoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cmbProductoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPrecioPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGap(145, 145, 145)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -846,7 +845,9 @@ public class FrmVentas extends javax.swing.JFrame {
                     .addComponent(jLabel46)
                     .addComponent(cmbProductoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
-                .addComponent(jLabel47)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel47)
+                    .addComponent(lblPrecioPedido))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel48)
@@ -1089,6 +1090,8 @@ public class FrmVentas extends javax.swing.JFrame {
                 this,
                 "Cliente registrado correctamente."
         );
+        
+        limpiarCliente();
 
     } catch (NumberFormatException e) {
 
@@ -1127,6 +1130,8 @@ public class FrmVentas extends javax.swing.JFrame {
                 this,
                 "Puesto registrado."
         );
+        
+        limpiarPuesto();
 
     } catch (NumberFormatException e) {
 
@@ -1137,6 +1142,33 @@ public class FrmVentas extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_btnRegistrarPuestoActionPerformed
 
+    private void limpiarPuesto() {
+
+    txtIdPuesto.setText("");
+    txtDescripcionPuesto.setText("");
+    txtSueldo.setText("");
+
+    txtIdPuesto.requestFocus();
+}
+    
+    private void limpiarPersonal() {
+
+    txtIdPersonal.setText("");
+    txtNombrePersonal.setText("");
+    txtApellidoPersonal.setText("");
+    txtDniPersonal.setText("");
+    txtFechaPersonal.setText("");
+
+    if (cmbPuestoPersonal.getItemCount() > 0) {
+        cmbPuestoPersonal.setSelectedIndex(0);
+    }
+
+    cmbJefePersonal.setSelectedIndex(0);
+
+    txtIdPersonal.requestFocus();
+}
+    
+    
     private void btnRegistrarPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPersonalActionPerformed
         // TODO add your handling code here:
         try {
@@ -1212,6 +1244,8 @@ public class FrmVentas extends javax.swing.JFrame {
                 this,
                 "Personal registrado."
         );
+        
+        limpiarPersonal();
 
     } catch (NumberFormatException e) {
 
@@ -1222,6 +1256,15 @@ public class FrmVentas extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_btnRegistrarPersonalActionPerformed
 
+    private void limpiarCategoria() {
+
+    txtIdCategoria.setText("");
+    txtTipoCategoria.setText("");
+
+    txtIdCategoria.requestFocus();
+}
+    
+    
     private void txtTipoCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoCategoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTipoCategoriaActionPerformed
@@ -1239,6 +1282,16 @@ public class FrmVentas extends javax.swing.JFrame {
 
         String tipo =
                 txtTipoCategoria.getText();
+        
+        if (txtTipoCategoria.getText().trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Ingrese el nombre de la categoría."
+            );
+
+            return;
+        }
 
         Categoria categoria =
                 new Categoria(id, tipo);
@@ -1255,6 +1308,8 @@ public class FrmVentas extends javax.swing.JFrame {
                 this,
                 "Categoría registrada."
         );
+        
+        limpiarCategoria();
 
     } catch (NumberFormatException e) {
 
@@ -1265,6 +1320,24 @@ public class FrmVentas extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_btnRegistrarCategoriaActionPerformed
 
+    private void limpiarProducto() {
+
+    txtIdProducto.setText("");
+    txtNombreProducto.setText("");
+    txtPrecioProducto.setText("");
+
+    if (cmbCategoriaProducto.getItemCount() > 0) {
+        cmbCategoriaProducto.setSelectedIndex(0);
+    }
+
+    if (cmbEstadoProducto.getItemCount() > 0) {
+        cmbEstadoProducto.setSelectedIndex(0);
+    }
+
+    txtIdProducto.requestFocus();
+}
+    
+    
     private void btnRegistrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarProductoActionPerformed
         // TODO add your handling code here:
         try {
@@ -1318,6 +1391,8 @@ public class FrmVentas extends javax.swing.JFrame {
                 this,
                 "Producto registrado."
         );
+        
+        limpiarProducto();
 
     } catch (NumberFormatException e) {
 
@@ -1373,6 +1448,7 @@ public class FrmVentas extends javax.swing.JFrame {
         actualizarTotal();
 
         txtCantidadPedido.setText("");
+        txtCantidadPedido.requestFocus();
 
     } catch (NumberFormatException e) {
 
@@ -1383,6 +1459,32 @@ public class FrmVentas extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_btnAgregarDetalleActionPerformed
 
+    private void limpiarPedido() {
+
+    txtIdPedido.setText("");
+    txtFechaPedido.setText("");
+    txtCantidadPedido.setText("");
+
+    chkEstadoPedido.setSelected(false);
+
+    if (cmbClientePedido.getItemCount() > 0) {
+        cmbClientePedido.setSelectedIndex(0);
+    }
+
+    if (cmbPersonalPedido.getItemCount() > 0) {
+        cmbPersonalPedido.setSelectedIndex(0);
+    }
+
+    if (cmbProductoPedido.getItemCount() > 0) {
+        cmbProductoPedido.setSelectedIndex(0);
+    }
+
+    lblPrecioPedido.setText("S/ 0.00");
+
+    txtIdPedido.requestFocus();
+}
+    
+    
     private void btnGuardarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPedidoActionPerformed
         // TODO add your handling code here:
         try {
@@ -1464,8 +1566,7 @@ public class FrmVentas extends javax.swing.JFrame {
         actualizarTablaDetalle();
         actualizarTotal();
 
-        txtIdPedido.setText("");
-        txtFechaPedido.setText("");
+        limpiarPedido();
 
     } catch (NumberFormatException e) {
 
@@ -1475,6 +1576,28 @@ public class FrmVentas extends javax.swing.JFrame {
         );
     }
     }//GEN-LAST:event_btnGuardarPedidoActionPerformed
+
+    private void cmbProductoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProductoPedidoActionPerformed
+        // TODO add your handling code here:
+         int indice = cmbProductoPedido.getSelectedIndex();
+
+    if (indice >= 0 && indice < listaProductos.size()) {
+
+        Producto producto =
+                listaProductos.get(indice);
+
+        lblPrecioPedido.setText(
+                String.format(
+                        "S/ %.2f",
+                        producto.getPrecio()
+                )
+        );
+
+    } else {
+
+        lblPrecioPedido.setText("S/ 0.00");
+    }
+    }//GEN-LAST:event_cmbProductoPedidoActionPerformed
 
     private void actualizarTablaDetalle() {
 
@@ -1510,8 +1633,33 @@ public class FrmVentas extends javax.swing.JFrame {
     }
 
     lblTotal.setText(
-            String.format("TOTAL: S/ %.2f", total)
-    );
+        String.format("S/ %.2f", total)
+);
+}
+    
+    private void limpiarCliente() {
+
+    txtIdCliente.setText("");
+    txtDireccionCliente.setText("");
+    txtTelefonoCliente.setText("");
+    txtEmailCliente.setText("");
+
+    // Cliente Natural
+    txtNombresNatural.setText("");
+    txtApellidosNatural.setText("");
+    txtDniNatural.setText("");
+    txtFechaNatural.setText("");
+    txtSexoNatural.setText("");
+
+    // Cliente Jurídico
+    txtRuc.setText("");
+    txtRazonSocial.setText("");
+    txtFax.setText("");
+    txtContacto.setText("");
+
+    cmbTipoCliente.setSelectedIndex(0);
+
+    txtIdCliente.requestFocus();
 }
     
     /**
@@ -1620,6 +1768,7 @@ public class FrmVentas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JLabel lblPrecioPedido;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JPanel pnlJuridico;
     private javax.swing.JPanel pnlNatural;
