@@ -43,4 +43,5 @@ public class Puesto {
     public String toString() {
         return idPuesto + " - " + descripcion;
     }
+    
 }
