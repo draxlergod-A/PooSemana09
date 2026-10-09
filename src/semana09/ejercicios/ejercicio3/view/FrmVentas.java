@@ -731,7 +731,7 @@ public class FrmVentas extends javax.swing.JFrame {
 
         jLabel44.setText("Estado:");
 
-        chkEstadoPedido.setText("jCheckBox1");
+        chkEstadoPedido.setText("Atendido");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
