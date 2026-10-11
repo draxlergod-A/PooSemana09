@@ -232,6 +232,9 @@
                 <Component class="javax.swing.JTextField" name="txtDniPersonal">
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtFechaPersonal">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFechaPersonalActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cmbPuestoPersonal">
                   <Properties>
@@ -1198,6 +1201,9 @@
                 <Component class="javax.swing.JTextField" name="txtIdPedido">
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtFechaPedido">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFechaPedidoActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cmbClientePedido">
                   <Properties>

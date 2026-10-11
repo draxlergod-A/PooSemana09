@@ -330,18 +330,18 @@ for (Cliente cliente : listaClientes) {
     return;
 }
 
-    if (nombres.isEmpty()
-            || apellidos.isEmpty()
-            || direccion.isEmpty()
-            || telefono.isEmpty()) {
+    if (nombres.trim().isEmpty()
+        || apellidos.trim().isEmpty()
+        || direccion.trim().isEmpty()
+        || telefono.trim().isEmpty()) {
 
-        JOptionPane.showMessageDialog(
-                this,
-                "Complete todos los datos del cliente."
-        );
+    JOptionPane.showMessageDialog(
+            this,
+            "Complete todos los datos del cliente."
+    );
 
-        return;
-    }
+    return;
+}
 
     Cliente cliente = new Cliente(
             id,
@@ -429,7 +429,7 @@ for (Prestamo prestamo : listaPrestamos) {
         String fecha =
                 txtFecha.getText();
 
-        if (fecha.isEmpty()) {
+        if (fecha.trim().isEmpty()) {
 
             JOptionPane.showMessageDialog(
                     this,

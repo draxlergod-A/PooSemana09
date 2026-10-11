@@ -373,13 +373,13 @@ public class FrmProductos extends javax.swing.JFrame {
     return;
 }
 
-for (MateriaPrima materia : listaMaterias) {
+for (Producto producto : listaProductos) {
 
-    if (materia.getIdMateriaPrima() == id) {
+    if (producto.getIdProducto() == id) {
 
         JOptionPane.showMessageDialog(
                 this,
-                "Ya existe una materia prima con ese ID."
+                "Ya existe un producto con ese ID."
         );
 
         return;
@@ -417,7 +417,7 @@ if (costo <= 0) {
 
     JOptionPane.showMessageDialog(
             this,
-            "Ingrese el nombre de la materia prima."
+            "Ingrese el nombre del producto."
     );
 
     return;
@@ -460,11 +460,34 @@ if (costo <= 0) {
 
         int id =
                 Integer.parseInt(txtIdMateriaPrima.getText());
+        
+        if (id <= 0) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El ID de la materia prima debe ser mayor a 0."
+    );
+
+    return;
+}
+        
+        for (MateriaPrima materia : listaMaterias) {
+
+    if (materia.getIdMateriaPrima() == id) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe una materia prima con ese ID."
+        );
+
+        return;
+    }
+}
 
         String nombre =
                 txtNombreMateriaPrima.getText();
 
-        if (nombre.isEmpty()) {
+        if (nombre.trim().isEmpty()) {
 
             JOptionPane.showMessageDialog(
                     this,

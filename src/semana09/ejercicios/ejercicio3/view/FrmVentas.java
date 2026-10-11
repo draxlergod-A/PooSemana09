@@ -176,6 +176,8 @@ public class FrmVentas extends javax.swing.JFrame {
         btnRegistrarPersonal.setText("REGISTRAR PERSONAL");
         btnRegistrarPersonal.addActionListener(this::btnRegistrarPersonalActionPerformed);
 
+        txtFechaPersonal.addActionListener(this::txtFechaPersonalActionPerformed);
+
         cmbJefePersonal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin jefe" }));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -732,6 +734,8 @@ public class FrmVentas extends javax.swing.JFrame {
 
         jLabel44.setText("Estado:");
 
+        txtFechaPedido.addActionListener(this::txtFechaPedidoActionPerformed);
+
         chkEstadoPedido.setText("Atendido");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -1042,9 +1046,30 @@ for (Cliente c : listaClientes) {
 
         String telefono =
                 txtTelefonoCliente.getText();
+        if (!telefono.matches("\\d{9}")) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El teléfono debe contener 9 dígitos."
+    );
+
+    return;
+}
 
         String email =
                 txtEmailCliente.getText();
+        
+        if (direccion.trim().isEmpty()
+        || telefono.trim().isEmpty()
+        || email.trim().isEmpty()) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "Complete dirección, teléfono y correo."
+    );
+
+    return;
+}
         
         
         if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,}$")) {
@@ -1066,6 +1091,18 @@ for (Cliente c : listaClientes) {
 
             String apellidos =
                     txtApellidosNatural.getText();
+            
+            if (nombres.trim().isEmpty()
+        || apellidos.trim().isEmpty()) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "Ingrese nombres y apellidos."
+    );
+
+    return;
+}
+            
 
             String dni =
                     txtDniNatural.getText();
@@ -1159,6 +1196,17 @@ for (Cliente c : listaClientes) {
 
             String contacto =
                     txtContacto.getText();
+            
+            if (razonSocial.trim().isEmpty()
+        || contacto.trim().isEmpty()) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "Ingrese razón social y contacto."
+    );
+
+    return;
+}
 
             cliente = new ClienteJuridico(
                     id,
@@ -1242,10 +1290,6 @@ for (Cliente c : listaClientes) {
 }
         
 
-        Puesto puesto =
-                new Puesto(id, descripcion, sueldo);
-        
-        
         for (Puesto p : listaPuestos) {
 
     if (p.getIdPuesto() == id) {
@@ -1258,6 +1302,10 @@ for (Cliente c : listaClientes) {
         return;
     }
 }
+        Puesto puesto =
+                new Puesto(id, descripcion, sueldo);
+        
+        
 
         listaPuestos.add(puesto);
 
@@ -1327,19 +1375,14 @@ for (Cliente c : listaClientes) {
         int id =
                 Integer.parseInt(txtIdPersonal.getText());
         
-        for (Categoria categoria : listaCategorias) {
+        if (id <= 0) {
 
-    if (categoria.getIdCategoria() == id) {
+    JOptionPane.showMessageDialog(
+            this,
+            "El ID del personal debe ser mayor a 0."
+    );
 
-        JOptionPane.showMessageDialog(
-                this,
-                "Ya existe una categoría con ese ID."
-        );
-
-        return;
-    }
-    
-    
+    return;
 }
 
         String nombre =
@@ -1483,9 +1526,52 @@ for (Cliente c : listaClientes) {
 
         int id =
                 Integer.parseInt(txtIdCategoria.getText());
+        
+        if (id <= 0) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El ID de la categoría debe ser mayor a 0."
+    );
+
+    return;
+}
 
         String tipo =
                 txtTipoCategoria.getText();
+        
+        if (tipo.trim().isEmpty()) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "Ingrese el nombre de la categoría."
+    );
+
+    return;
+}
+        
+        for (Categoria categoria : listaCategorias) {
+
+    if (categoria.getIdCategoria() == id) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe una categoría con ese ID."
+        );
+
+        return;
+    }
+
+    if (categoria.getTipo().equalsIgnoreCase(tipo.trim())) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe una categoría con ese nombre."
+        );
+
+        return;
+    }
+}
         
         if (txtTipoCategoria.getText().trim().isEmpty()) {
 
@@ -1601,6 +1687,16 @@ for (Producto producto : listaProductos) {
         JOptionPane.showMessageDialog(
                 this,
                 "Ya existe un producto con ese ID."
+        );
+
+        return;
+    }
+
+    if (producto.getNombre().equalsIgnoreCase(nombre.trim())) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe un producto con ese nombre."
         );
 
         return;
@@ -1890,6 +1986,15 @@ for (Pedido pedido : listaPedidos) {
         lblPrecioPedido.setText("S/ 0.00");
     }
     }//GEN-LAST:event_cmbProductoPedidoActionPerformed
+
+    private void txtFechaPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaPersonalActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtFechaPersonalActionPerformed
+
+    private void txtFechaPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaPedidoActionPerformed
 
     private void actualizarTablaDetalle() {
 
