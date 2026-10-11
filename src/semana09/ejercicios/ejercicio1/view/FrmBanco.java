@@ -23,6 +23,7 @@ public class FrmBanco extends javax.swing.JFrame {
      */
     public FrmBanco() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -63,7 +64,7 @@ public class FrmBanco extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPrestamos = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -293,10 +294,41 @@ public class FrmBanco extends javax.swing.JFrame {
         try {
 
     int id = Integer.parseInt(txtIdCliente.getText());
+    if (id <= 0) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El ID del cliente debe ser mayor a 0."
+    );
+
+    return;
+}
+
+for (Cliente cliente : listaClientes) {
+
+    if (cliente.getIdCliente() == id) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe un cliente con ese ID."
+        );
+
+        return;
+    }
+}
     String nombres = txtNombres.getText();
     String apellidos = txtApellidos.getText();
     String direccion = txtDireccion.getText();
     String telefono = txtTelefono.getText();
+    if (!telefono.matches("\\d{9}")) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El teléfono debe contener exactamente 9 dígitos."
+    );
+
+    return;
+}
 
     if (nombres.isEmpty()
             || apellidos.isEmpty()
@@ -359,9 +391,40 @@ public class FrmBanco extends javax.swing.JFrame {
 
         int idPrestamo =
                 Integer.parseInt(txtIdPrestamo.getText());
+        if (idPrestamo <= 0) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El ID del préstamo debe ser mayor a 0."
+    );
+
+    return;
+}
+
+for (Prestamo prestamo : listaPrestamos) {
+
+    if (prestamo.getIdPrestamo() == idPrestamo) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe un préstamo con ese ID."
+        );
+
+        return;
+    }
+}
 
         double importe =
                 Double.parseDouble(txtImporte.getText());
+        if (importe <= 0) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El importe debe ser mayor a S/ 0."
+    );
+
+    return;
+}
 
         String fecha =
                 txtFecha.getText();

@@ -27,6 +27,7 @@ public class FrmProductos extends javax.swing.JFrame {
      */
     public FrmProductos() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -71,9 +72,12 @@ public class FrmProductos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDetalle = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 0));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("CONTROL DE PRODUCCIÓN Y MATERIA PRIMA");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -92,6 +96,8 @@ public class FrmProductos extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addContainerGap(57, Short.MAX_VALUE))
         );
+
+        jPanel2.setBackground(new java.awt.Color(51, 153, 0));
 
         jLabel2.setText("PRODUCTOS");
 
@@ -164,6 +170,8 @@ public class FrmProductos extends javax.swing.JFrame {
                 .addGap(81, 81, 81))
         );
 
+        jPanel3.setBackground(new java.awt.Color(0, 153, 0));
+
         jLabel7.setText("MATERIA PRIMA");
 
         jLabel8.setText("ID:");
@@ -211,6 +219,8 @@ public class FrmProductos extends javax.swing.JFrame {
                 .addComponent(btnRegistrarMateria)
                 .addGap(87, 87, 87))
         );
+
+        jPanel4.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel10.setText("ASIGNAR MATERIA PRIMA");
 
@@ -292,15 +302,15 @@ public class FrmProductos extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -313,7 +323,7 @@ public class FrmProductos extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
@@ -353,6 +363,28 @@ public class FrmProductos extends javax.swing.JFrame {
         try {
 
         int id = Integer.parseInt(txtIdProducto.getText());
+        if (id <= 0) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El ID del producto debe ser mayor a 0."
+    );
+
+    return;
+}
+
+for (MateriaPrima materia : listaMaterias) {
+
+    if (materia.getIdMateriaPrima() == id) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe una materia prima con ese ID."
+        );
+
+        return;
+    }
+}
         String nombre = txtNombreProducto.getText();
 
         int cantidad =
@@ -360,16 +392,36 @@ public class FrmProductos extends javax.swing.JFrame {
 
         double costo =
                 Double.parseDouble(txtCostoFabricacion.getText());
+        
+        if (cantidad <= 0) {
 
-        if (nombre.isEmpty()) {
+    JOptionPane.showMessageDialog(
+            this,
+            "La cantidad fabricada debe ser mayor a 0."
+    );
 
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Ingrese el nombre del producto."
-            );
+    return;
+}
 
-            return;
-        }
+if (costo <= 0) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El costo de fabricación debe ser mayor a S/ 0."
+    );
+
+    return;
+}
+
+        if (nombre.trim().isEmpty()) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "Ingrese el nombre de la materia prima."
+    );
+
+    return;
+}
 
         Producto producto = new Producto(
                 id,
@@ -489,6 +541,30 @@ public class FrmProductos extends javax.swing.JFrame {
 
         MateriaPrima materia =
                 listaMaterias.get(indiceMateria);
+        
+        for (DetalleProducto detalle : listaDetalles) {
+
+    if (detalle.getProducto() == producto
+            && detalle.getMateriaPrima() == materia) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Esta materia prima ya fue asignada a este producto."
+        );
+
+        return;
+    }
+}
+        
+        if (cantidadUsada <= 0) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "La cantidad usada debe ser mayor a 0."
+    );
+
+    return;
+}
 
         DetalleProducto detalle =
                 new DetalleProducto(

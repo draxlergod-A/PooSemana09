@@ -30,6 +30,7 @@ public class FrmVentas extends javax.swing.JFrame {
         
         pnlNatural.setVisible(true);
         pnlJuridico.setVisible(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -156,7 +157,7 @@ public class FrmVentas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel20.setText("ID: ");
 
@@ -1011,6 +1012,30 @@ public class FrmVentas extends javax.swing.JFrame {
 
         int id =
                 Integer.parseInt(txtIdCliente.getText());
+        
+        
+        if (id <= 0) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El ID del cliente debe ser mayor a 0."
+    );
+
+    return;
+}
+
+for (Cliente c : listaClientes) {
+
+    if (c.getIdCliente() == id) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe un cliente con ese ID."
+        );
+
+        return;
+    }
+}
 
         String direccion =
                 txtDireccionCliente.getText();
@@ -1020,6 +1045,17 @@ public class FrmVentas extends javax.swing.JFrame {
 
         String email =
                 txtEmailCliente.getText();
+        
+        
+        if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,}$")) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "Ingrese un correo electrónico válido."
+    );
+
+    return;
+}
 
         Cliente cliente;
 
@@ -1033,6 +1069,35 @@ public class FrmVentas extends javax.swing.JFrame {
 
             String dni =
                     txtDniNatural.getText();
+            
+            if (!dni.matches("\\d{8}")) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El DNI debe contener exactamente 8 dígitos."
+    );
+
+    return;
+}
+            
+            for (Cliente c : listaClientes) {
+
+    if (c instanceof ClienteNatural) {
+
+        ClienteNatural natural =
+                (ClienteNatural) c;
+
+        if (natural.getDni().equals(dni)) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Ya existe un cliente con ese DNI."
+            );
+
+            return;
+        }
+    }
+}
 
             String fecha =
                     txtFechaNatural.getText();
@@ -1056,6 +1121,35 @@ public class FrmVentas extends javax.swing.JFrame {
 
             String ruc =
                     txtRuc.getText();
+            
+            if (!ruc.matches("\\d{11}")) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El RUC debe contener exactamente 11 dígitos."
+    );
+
+    return;
+}
+            
+            for (Cliente c : listaClientes) {
+
+    if (c instanceof ClienteJuridico) {
+
+        ClienteJuridico juridico =
+                (ClienteJuridico) c;
+
+        if (juridico.getRuc().equals(ruc)) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Ya existe un cliente con ese RUC."
+            );
+
+            return;
+        }
+    }
+}
 
             String razonSocial =
                     txtRazonSocial.getText();
@@ -1108,15 +1202,62 @@ public class FrmVentas extends javax.swing.JFrame {
 
         int id =
                 Integer.parseInt(txtIdPuesto.getText());
+        
+        if (id <= 0) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El ID del puesto debe ser mayor a 0."
+    );
+
+    return;
+}
 
         String descripcion =
                 txtDescripcionPuesto.getText();
+        
+        if (descripcion.trim().isEmpty()) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "Ingrese la descripción del puesto."
+    );
+
+    return;
+}
+        
+        
 
         double sueldo =
                 Double.parseDouble(txtSueldo.getText());
+        
+        if (sueldo <= 0) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El sueldo debe ser mayor a S/ 0."
+    );
+
+    return;
+}
+        
 
         Puesto puesto =
                 new Puesto(id, descripcion, sueldo);
+        
+        
+        for (Puesto p : listaPuestos) {
+
+    if (p.getIdPuesto() == id) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe un puesto con ese ID."
+        );
+
+        return;
+    }
+}
 
         listaPuestos.add(puesto);
 
@@ -1185,15 +1326,52 @@ public class FrmVentas extends javax.swing.JFrame {
 
         int id =
                 Integer.parseInt(txtIdPersonal.getText());
+        
+        for (Categoria categoria : listaCategorias) {
+
+    if (categoria.getIdCategoria() == id) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe una categoría con ese ID."
+        );
+
+        return;
+    }
+    
+    
+}
 
         String nombre =
                 txtNombrePersonal.getText();
+        
 
         String apellido =
                 txtApellidoPersonal.getText();
+        
+        if (nombre.trim().isEmpty()
+        || apellido.trim().isEmpty()) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "Ingrese nombre y apellido del personal."
+    );
+
+    return;
+}
 
         String dni =
                 txtDniPersonal.getText();
+        
+        if (!dni.matches("\\d{8}")) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El DNI del personal debe tener 8 dígitos."
+    );
+
+    return;
+}
 
         String fecha =
                 txtFechaPersonal.getText();
@@ -1212,6 +1390,29 @@ public class FrmVentas extends javax.swing.JFrame {
                 fecha,
                 puesto
         );
+        
+        for (Personal p : listaPersonal) {
+
+    if (p.getIdPersonal() == id) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe un personal con ese ID."
+        );
+
+        return;
+    }
+
+    if (p.getDni().equals(dni)) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe un personal con ese DNI."
+        );
+
+        return;
+    }
+}
 
         /*
          * Dejaremos la primera opción
@@ -1254,6 +1455,9 @@ public class FrmVentas extends javax.swing.JFrame {
                 "El ID debe ser numérico."
         );
     }
+        
+        
+        
     }//GEN-LAST:event_btnRegistrarPersonalActionPerformed
 
     private void limpiarCategoria() {
@@ -1360,6 +1564,48 @@ public class FrmVentas extends javax.swing.JFrame {
 
         double precio =
                 Double.parseDouble(txtPrecioProducto.getText());
+        if (nombre.trim().isEmpty()) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "Ingrese el nombre del producto."
+    );
+
+    return;
+}
+
+if (precio <= 0) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El precio debe ser mayor a S/ 0."
+    );
+
+    return;
+}
+
+if (id <= 0) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El ID del producto debe ser mayor a 0."
+    );
+
+    return;
+}
+
+for (Producto producto : listaProductos) {
+
+    if (producto.getIdProducto() == id) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe un producto con ese ID."
+        );
+
+        return;
+    }
+}
 
         String estado =
                 cmbEstadoProducto.getSelectedItem().toString();
@@ -1435,6 +1681,19 @@ public class FrmVentas extends javax.swing.JFrame {
 
         Producto producto =
                 listaProductos.get(indice);
+        
+        for (PedidoDetalle detalle : detallesTemporales) {
+
+    if (detalle.getProducto() == producto) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Este producto ya fue agregado al pedido."
+        );
+
+        return;
+    }
+}
 
         PedidoDetalle detalle =
                 new PedidoDetalle(
@@ -1521,9 +1780,42 @@ public class FrmVentas extends javax.swing.JFrame {
 
         int idPedido =
                 Integer.parseInt(txtIdPedido.getText());
+        
+        if (idPedido <= 0) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "El ID del pedido debe ser mayor a 0."
+    );
+
+    return;
+}
+
+for (Pedido pedido : listaPedidos) {
+
+    if (pedido.getIdPedido() == idPedido) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Ya existe un pedido con ese ID."
+        );
+
+        return;
+    }
+}
 
         String fecha =
                 txtFechaPedido.getText();
+        
+        if (fecha.trim().isEmpty()) {
+
+    JOptionPane.showMessageDialog(
+            this,
+            "Ingrese la fecha del pedido."
+    );
+
+    return;
+}
 
         boolean estado =
                 chkEstadoPedido.isSelected();
